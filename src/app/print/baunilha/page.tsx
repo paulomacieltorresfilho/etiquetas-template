@@ -1,4 +1,5 @@
 import { convertISOStringToLocaleString } from "@/util/date";
+import './etiquetas.css'
 
 function AdesivoContainer(
     {fabricacao, validade}: {fabricacao: string, validade: string}

@@ -1,6 +1,6 @@
 "use client";
 import { TipoCookies } from "@/enum/tipo-cookies";
-import { convertDateToISOString, convertDateToLocaleString } from "@/util/date";
+import { convertDateToISOString } from "@/util/date";
 import Link from "next/link";
 import React, { useState } from "react";
 

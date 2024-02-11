@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('../../public/fonts/Comfortaa-VariableFont_wght.ttf');
+}
+
 :root {
-    --font-family: '__Comfortaa_987f34', '__Comfortaa_Fallback_987f34';
+    --font-family: 'Comfortaa';
+}
+
+* {
+    font-family: 'Comfortaa';
 }

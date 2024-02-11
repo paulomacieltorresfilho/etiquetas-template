@@ -1,9 +1,6 @@
 import "@picocss/pico";
 import "./style.css"
 import type { Metadata } from "next";
-import { Comfortaa } from "next/font/google";
-
-const fontFamily = Comfortaa({subsets: ['latin']})
 
 export const metadata: Metadata = {
   title: "Etiquetas",
@@ -17,7 +14,7 @@ export default function FormLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={fontFamily.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

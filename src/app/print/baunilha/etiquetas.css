@@ -9,40 +9,6 @@
     --page-padding-right: 0.7cm;
 */
 
-:root {
-    /* --font-family: '__Comfortaa_987f34', '__Comfortaa_Fallback_987f34'; */
-        --num-cols: 2;
-    --box-width: 99mm;
-    --box-height: 55.8mm;
-    --box-h-gap: 2.5mm;
-    --page-padding-top: 9.5mm;
-    --page-padding-bottom: 9.5mm;
-    --page-padding-left: 5mm;
-    --page-padding-right: 5mm;
-}
-
-* {
-    font-family: '__Comfortaa_987f34', '__Comfortaa_Fallback_987f34';
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    width: 21cm;
-    height: 29.7cm;
-    padding-top: var(--page-padding-top);
-    padding-bottom: var(--page-padding-bottom);
-    padding-left: var(--page-padding-left);
-    padding-right: var(--page-padding-right);
-}
-
-.container {
-    display: grid;
-    grid-template-columns: repeat(var(--num-cols), var(--box-width));
-    gap: 0 var(--box-h-gap);
-}
-
 .info {
     /* background-color: #bf282f; */
     /* color: white; */

@@ -1,0 +1,34 @@
+
+:root {
+    --font-family: 'Comfortaa';
+    --num-cols: 2;
+    --box-width: 99mm;
+    --box-height: 55.8mm;
+    --box-h-gap: 2.5mm;
+    --page-padding-top: 9.5mm;
+    --page-padding-bottom: 9.5mm;
+    --page-padding-left: 5mm;
+    --page-padding-right: 5mm;
+}
+
+* {
+    font-family: 'Comfortaa';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 21cm;
+    height: 29.7cm;
+    padding-top: var(--page-padding-top);
+    padding-bottom: var(--page-padding-bottom);
+    padding-left: var(--page-padding-left);
+    padding-right: var(--page-padding-right);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(var(--num-cols), var(--box-width));
+    gap: 0 var(--box-h-gap);
+}
