@@ -8,7 +8,7 @@ async function saveAsPdf(url: string) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  await page.goto(`http://localhost:3000/${url}`, {
+  await page.goto(`${process.env.BASE_URL}/${url}`, {
     waitUntil: "networkidle0",
   });
 
