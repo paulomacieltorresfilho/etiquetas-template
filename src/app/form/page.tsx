@@ -8,9 +8,14 @@ export default function FormPage() {
     fabricacao: convertDateToISOString(new Date()),
     validade: convertDateToISOString(new Date()),
     tipo: TipoCookies.BAUNILHA.toString(),
+    loading: false
   });
 
   function downloadPDF() {
+    setState({
+      ...state,
+      loading: true
+    })
     fetch(`/api/create-pdf?url=print/${state.tipo}&fabricacao=${state.fabricacao}&validade=${state.validade}`)
       .then(response => {
         return response.arrayBuffer()
@@ -24,6 +29,12 @@ export default function FormPage() {
         link.href = window.URL.createObjectURL(blob);
         link.download = `${state.fabricacao}${state.tipo}.pdf`;
         link.click();
+      })
+      .then(() => {
+        setState({
+          ...state,
+          loading: false
+        })
       })
   }
 
@@ -101,8 +112,11 @@ export default function FormPage() {
         <button
           type="button"
           onClick={downloadPDF}
+          disabled={state.loading}
+          aria-busy={state.loading}
+          aria-label={"Baixando"}
         >
-          Salvar como PDF
+          {state.loading ? "" : "Salvar como PDF"} 
         </button>
       </form>
     </div>
