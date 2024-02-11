@@ -1,14 +1,15 @@
 "use server";
 
+import Chromium from "@sparticuz/chromium-min";
 import { NextRequest, NextResponse } from "next/server";
-import Chromium from "chrome-aws-lambda";
+import puppeteer from "puppeteer-core";
 
 async function saveAsPdf(url: string) {
   try {
-    const browser = await Chromium.puppeteer.launch({
+    const browser = await puppeteer.launch({
       args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
       defaultViewport: Chromium.defaultViewport,
-      executablePath: await Chromium.executablePath,
+      executablePath: await Chromium.executablePath(),
       headless: true,
       ignoreHTTPSErrors: true,
     });

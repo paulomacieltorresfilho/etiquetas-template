@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 
-process.env.TZ = "America/Sao_Paulo"
-
-const nextConfig = {};
+const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: ["puppeteer-core"],
+  },
+};
 
 export default nextConfig;
