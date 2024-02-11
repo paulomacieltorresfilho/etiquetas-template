@@ -17,20 +17,22 @@ export default function FormPage() {
       loading: true
     })
     fetch(`/api/create-pdf?url=print/${state.tipo}&fabricacao=${state.fabricacao}&validade=${state.validade}`)
-      .then(response => {
-        return response.arrayBuffer();
-      })
+      .then(response => response.arrayBuffer().catch(() => response.json())      )
       .then(buffer => {
-        var bytes = new Uint8Array(buffer);
+        if (typeof buffer == 'string') {
+          let warning = document.createElement('p');
+          warning.innerHTML = buffer
+        }
+          var bytes = new Uint8Array(buffer);
 
-        var blob = new Blob([bytes], { type: "application/pdf" });
+          var blob = new Blob([bytes], { type: "application/pdf" });
 
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = `${state.fabricacao}${state.tipo}.pdf`;
-        link.click();
-      })
-      .then(() => {
+          var link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = `${state.fabricacao}${state.tipo}.pdf`;
+          link.click();
+        })
+      .finally(() => {
         setState({
           ...state,
           loading: false
@@ -116,7 +118,7 @@ export default function FormPage() {
           aria-busy={state.loading}
           aria-label={"Baixando"}
         >
-          {state.loading ? "" : "Salvar como PDF"} 
+          {state.loading ? "" : "Salvar como PDF"}
         </button>
       </form>
     </div>
