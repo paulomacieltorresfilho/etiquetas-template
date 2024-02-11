@@ -8,7 +8,8 @@ export default function FormPage() {
     fabricacao: convertDateToISOString(new Date()),
     validade: convertDateToISOString(new Date()),
     tipo: TipoCookies.BAUNILHA.toString(),
-    loading: false
+    loading: false,
+    teste: ''
   });
 
   function downloadPDF() {
@@ -17,8 +18,13 @@ export default function FormPage() {
       loading: true
     })
     fetch(`/api/create-pdf?url=print/${state.tipo}&fabricacao=${state.fabricacao}&validade=${state.validade}`)
-      .then(response => {
-        return response.arrayBuffer()
+      .then(async response => {
+        const buffer = await response.arrayBuffer()
+        setState({
+          ...state,
+          teste: new Uint8Array(buffer).toString()
+        })
+        return buffer;
       })
       .then(buffer => {
         var bytes = new Uint8Array(buffer);
@@ -62,6 +68,8 @@ export default function FormPage() {
   return (
     <div className="container">
       <h1>Etiqueta Cookies</h1>
+      <h2>TEste</h2>
+      <p>{state.teste}</p>
       <form>
         <div className="grid">
           <label>
