@@ -1,8 +1,7 @@
 "use client";
 import { TipoCookies } from "@/enum/tipo-cookies";
 import { convertDateToISOString } from "@/util/date";
-import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function FormPage() {
   const [state, setState] = useState({
@@ -10,6 +9,23 @@ export default function FormPage() {
     validade: convertDateToISOString(new Date()),
     tipo: TipoCookies.BAUNILHA.toString(),
   });
+
+  function downloadPDF() {
+    fetch(`/api/create-pdf?url=print/${state.tipo}&fabricacao=${state.fabricacao}&validade=${state.validade}`)
+      .then(response => {
+        return response.arrayBuffer()
+      })
+      .then(buffer => {
+        var bytes = new Uint8Array(buffer);
+
+        var blob = new Blob([bytes], { type: "application/pdf" });
+
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `${state.fabricacao}${state.tipo}.pdf`;
+        link.click();
+      })
+  }
 
   function handleFabricacaoChange(event: React.FormEvent<HTMLInputElement>) {
     setState({
@@ -82,19 +98,12 @@ export default function FormPage() {
           </label>
         </fieldset>
 
-        <Link
-          href={{
-            pathname: `/print/${state.tipo}`,
-            query: {
-              validade: state.validade,
-              fabricacao: state.fabricacao,
-            },
-          }}
-          target="_blank"
-          role="button"
+        <button
+          type="button"
+          onClick={downloadPDF}
         >
-          Ir para página de impressão
-        </Link>
+          Salvar como PDF
+        </button>
       </form>
     </div>
   );
