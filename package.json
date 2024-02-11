@@ -11,8 +11,8 @@
   "dependencies": {
     "@picocss/pico": "^1.5.11",
     "next": "14.1.0",
-    "puppeteer-core": "^6",
-    "chrome-aws-lambda": "^6",
+    "puppeteer-core": "^10",
+    "chrome-aws-lambda": "^10",
     "react": "^18",
     "react-dom": "^18"
   },
