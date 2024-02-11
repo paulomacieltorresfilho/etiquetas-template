@@ -1,12 +1,17 @@
 "use server";
 
-import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
-import puppeteer from "puppeteer";
+import Chromium from "chrome-aws-lambda";
 
 async function saveAsPdf(url: string) {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await Chromium.puppeteer.launch({
+      args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: Chromium.defaultViewport,
+      executablePath: await Chromium.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
+    });
     const page = await browser.newPage();
   
     await page.goto(`${process.env.BASE_URL}/${url}`);
