@@ -9,7 +9,7 @@ async function saveAsPdf(url: string) {
     const browser = await puppeteer.launch({
       args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
       defaultViewport: Chromium.defaultViewport,
-      executablePath: await Chromium.executablePath(),
+      executablePath: await Chromium.executablePath('https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar'),
       headless: true,
       ignoreHTTPSErrors: true,
     });
