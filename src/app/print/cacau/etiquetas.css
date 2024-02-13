@@ -76,7 +76,8 @@
 }
 
 .sg::before, .sg::after{
-    content: '\204e';
+    content: '*';
+    font-size: 30px;
 }
 
 .sm {
