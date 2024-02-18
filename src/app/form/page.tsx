@@ -1,7 +1,7 @@
 "use client";
 import { TipoCookies } from "@/enum/tipo-cookies";
 import { convertDateToISOString } from "@/util/date";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export default function FormPage() {
   const [state, setState] = useState({
@@ -11,27 +11,35 @@ export default function FormPage() {
     loading: false,
   });
 
-  function downloadPDF() {
+  const CREATE_PDF_ROUTE = "api/create-pdf";
+
+  function getPdfRequestUrl() {
+    const pdfRequestUrl = new URL(`${process.env.BASE_URL}/${CREATE_PDF_ROUTE}`);
+    pdfRequestUrl.searchParams.append("url", `print/${state.tipo}`);
+    pdfRequestUrl.searchParams.append("fabricacao", state.fabricacao);
+    pdfRequestUrl.searchParams.append("validade", state.validade);
+    return pdfRequestUrl; 
+  }
+
+  function downaloadPDF(buffer: ArrayBuffer) {
+    var bytes = new Uint8Array(buffer);
+
+    var blob = new Blob([bytes], { type: "application/pdf" });
+
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = `${state.fabricacao}${state.tipo}.pdf`;
+    link.click();
+  }
+
+  function generatePDF() {
     setState({
       ...state,
       loading: true
     })
-    fetch(`/api/create-pdf?url=print/${state.tipo}&fabricacao=${state.fabricacao}&validade=${state.validade}`)
-      .then(response => response.arrayBuffer().catch(() => response.json())      )
-      .then(buffer => {
-        if (typeof buffer == 'string') {
-          let warning = document.createElement('p');
-          warning.innerHTML = buffer
-        }
-          var bytes = new Uint8Array(buffer);
-
-          var blob = new Blob([bytes], { type: "application/pdf" });
-
-          var link = document.createElement('a');
-          link.href = window.URL.createObjectURL(blob);
-          link.download = `${state.fabricacao}${state.tipo}.pdf`;
-          link.click();
-        })
+    fetch(getPdfRequestUrl())
+      .then(response => response.arrayBuffer())
+      .then(downaloadPDF)
       .finally(() => {
         setState({
           ...state,
@@ -113,7 +121,7 @@ export default function FormPage() {
 
         <button
           type="button"
-          onClick={downloadPDF}
+          onClick={generatePDF}
           disabled={state.loading}
           aria-busy={state.loading}
           aria-label={"Baixando"}
