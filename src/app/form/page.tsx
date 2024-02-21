@@ -5,8 +5,8 @@ import React, { useState } from "react";
 
 export default function FormPage() {
   const [state, setState] = useState({
-    fabricacao: convertDateToISOString(new Date()),
-    validade: convertDateToISOString(new Date()),
+    fabricacao: '',
+    validade: '',
     tipo: TipoCookies.BAUNILHA.toString(),
     loading: false,
   });
@@ -16,8 +16,10 @@ export default function FormPage() {
   function getPdfRequestUrl() {
     const pdfRequestUrl = new URL(`${process.env.BASE_URL}/${CREATE_PDF_ROUTE}`);
     pdfRequestUrl.searchParams.append("url", `print/${state.tipo}`);
-    pdfRequestUrl.searchParams.append("fabricacao", state.fabricacao);
-    pdfRequestUrl.searchParams.append("validade", state.validade);
+    if (state.validade && state.fabricacao) {
+      pdfRequestUrl.searchParams.append("fabricacao", state.fabricacao);
+      pdfRequestUrl.searchParams.append("validade", state.validade);
+    }
     return pdfRequestUrl; 
   }
 

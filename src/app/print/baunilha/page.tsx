@@ -2,7 +2,7 @@ import { convertISOStringToLocaleString } from "@/util/date";
 import './etiquetas.css'
 
 function AdesivoContainer(
-    {fabricacao, validade}: {fabricacao: string, validade: string}
+    {fabricacao, validade}: {fabricacao?: string, validade?: string}
 ) {
     return (
         <div id="first" className="adesivo-container">
@@ -94,7 +94,7 @@ function AdesivoContainer(
           </div>
           <div style={{ alignSelf: "flex-end" }} className="validade">
             <p style={{ marginLeft: "5mm" }}>F: {fabricacao}</p>
-            <p style={{ marginRight: "1.5cm" }}>V: {validade}</p>
+            <p style={{ marginRight: validade ? "1.5cm" : "3.7cm" }}>V: {validade}</p>
           </div>
         </div>
       </div>
@@ -102,11 +102,16 @@ function AdesivoContainer(
 }
 
 export default function BaunilhaPage(params: {
-  searchParams: { validade: string; fabricacao: string };
+  searchParams: { validade?: string; fabricacao?: string };
 }) {
 
-  const fabricacao = convertISOStringToLocaleString(params.searchParams.fabricacao)
-  const validade = convertISOStringToLocaleString(params.searchParams.validade)
+  let fabricacao;
+  let validade;
+  
+  if (params.searchParams.validade && params.searchParams.fabricacao) {
+    fabricacao = convertISOStringToLocaleString(params.searchParams.fabricacao)
+    validade = convertISOStringToLocaleString(params.searchParams.validade)
+  }
 
   return (
     <div className="container">
