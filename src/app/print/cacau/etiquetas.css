@@ -1,21 +1,8 @@
-/* ADESIVO PEQUENO
-    --num-cols: 6;
-    --box-width: 3.1cm;
-    --box-height: 1.7cm;
-    --box-h-gap: .2cm;
-    --page-padding-top: 1.3cm;
-    --page-padding-bottom: 1.3cm;
-    --page-padding-left: 0.7cm;
-    --page-padding-right: 0.7cm;
-*/
 
 .info {
-    /* background-color: #bf282f; */
-    /* color: white; */
     flex: 1;
     text-align: center;
     display: flex;
-    /* justify-content: space-around; */
     align-items: center;
     flex-direction: column;
     padding-left: 0;
@@ -23,7 +10,6 @@
 }
 
 .tabela-nutricional {
-    /* background-color: yellow; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +49,8 @@
 .adesivo-container {
     width: var(--box-width);
     height: var(--box-height);
-    padding: 4.72px;
+    padding: 20px;
+    /* background-color: rgba(255, 255, 0, .4); */
 }
 
 .text {

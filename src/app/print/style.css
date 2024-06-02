@@ -4,9 +4,9 @@
     --num-cols: 2;
     --box-width: 99mm;
     --box-height: 55.8mm;
-    --box-h-gap: 2.5mm;
-    --page-padding-top: 9.5mm;
-    --page-padding-bottom: 9.5mm;
+    --box-h-gap: 2mm;
+    --page-padding-top: 9mm; 
+    --page-padding-bottom: 9mm;
     --page-padding-left: 5mm;
     --page-padding-right: 5mm;
 }
@@ -30,5 +30,5 @@ body {
 .container {
     display: grid;
     grid-template-columns: repeat(var(--num-cols), var(--box-width));
-    gap: 0 var(--box-h-gap);
+    gap: 1px var(--box-h-gap);
 }

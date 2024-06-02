@@ -63,7 +63,7 @@
 .adesivo-container {
     width: var(--box-width);
     height: var(--box-height);
-    padding: 4.72px;
+    padding: 20px;
 }
 
 .text {
